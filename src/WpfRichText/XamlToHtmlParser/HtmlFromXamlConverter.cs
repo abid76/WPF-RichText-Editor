@@ -327,7 +327,7 @@ namespace WpfRichText
         private static void WriteElementContent(XmlTextReader xamlReader, XmlTextWriter htmlWriter, StringBuilder inlineStyle)
         {
             Debug.Assert(xamlReader.NodeType == XmlNodeType.Element);
-
+            
             bool elementContentStarted = false;
 
             if (xamlReader.IsEmptyElement)
@@ -500,6 +500,9 @@ namespace WpfRichText
 					case "LineBreak" :
 						htmlWriter.WriteRaw("<BR />");
 						break;
+                    case "Floater":
+                        htmlElementName = "IMG";
+                        break;
                     default :
                         htmlElementName = null; // Ignore the element
                         break;

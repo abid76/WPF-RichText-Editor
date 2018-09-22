@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Win32;
 
 namespace WpfRichText
 {
@@ -238,7 +239,39 @@ namespace WpfRichText
 
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            Image SelectImage()
+            {
+                var dialog = new OpenFileDialog();
+                dialog.InitialDirectory = System.Environment.SpecialFolder.MyDocuments.ToString();
+                dialog.Filter = "Picture|*.jpg;*.jpeg;*.gif;*.png";
+                dialog.Title = "Select Picture";
+
+                if (dialog.ShowDialog().Value)
+                {
+                    var filePath = dialog.FileName;
+                    var bitmap = new BitmapImage(new Uri(filePath, UriKind.Absolute));
+                    var image = new Image
+                    {
+                        Source = bitmap,
+                        Width = bitmap.Width,
+                        Height = bitmap.Height
+                    };
+                    return image;
+                }
+                return null;
+            }
+
+            var img = SelectImage();
+            if (img == null) return;
+
+
+
+            var tp = mainRTB.CaretPosition;
+            var floater = new Floater(new BlockUIContainer(img), tp)
+            {
+                HorizontalAlignment = HorizontalAlignment.Left,
+                Width = img.Width
+            };
         }
     }
 }
