@@ -119,19 +119,24 @@
     <Resource Include="Controls\Images\charactershrinkfont.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Controls\Images\editredo.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Controls\Images\editundo.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Page Include="Controls\RichTextEditor.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Controls\Images\world_link.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Controls\Images\tick.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Controls\Images\cross.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="Controls\Images\cut.png" />
+    <Resource Include="Controls\Images\editredo.png" />
+    <Resource Include="Controls\Images\editundo.png" />
     <Resource Include="Controls\Images\page_copy.png" />
     <Resource Include="Controls\Images\page_paste.png" />
     <Resource Include="Controls\Images\text_align_center.png" />
@@ -145,15 +150,6 @@
     <Resource Include="Controls\Images\text_list_bullets.png" />
     <Resource Include="Controls\Images\text_list_numbers.png" />
     <Resource Include="Controls\Images\text_underline.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Controls\Images\world_link.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Controls\Images\tick.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Controls\Images\cross.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

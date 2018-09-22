@@ -18,7 +18,9 @@ namespace WpfRichText
         }
 
 		/// <summary></summary>
-        public static readonly DependencyProperty CommandProperty = DependencyProperty.Register("Command", typeof(ICommand), typeof(CommandReference), new PropertyMetadata(new PropertyChangedCallback(OnCommandChanged)));
+		public static readonly DependencyProperty CommandProperty = DependencyProperty.Register("Command",
+		    typeof(ICommand), typeof(CommandReference),
+		    new PropertyMetadata(new PropertyChangedCallback(OnCommandChanged)));
 
 		/// <summary></summary>
         public ICommand Command

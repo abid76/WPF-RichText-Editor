@@ -245,57 +245,6 @@
                     <Image Source="Images/text_underline.png"/>
                 </MenuItem.Icon>
             </MenuItem>
-            <MenuItem Command="EditingCommands.IncreaseFontSize" ToolTip="Grow Font">
-                <MenuItem.Icon>
-                    <Image Source="Images/charactergrowfont.png"/>
-                </MenuItem.Icon>
-            </MenuItem>
-            <MenuItem Command="EditingCommands.DecreaseFontSize" ToolTip="Shrink Font">
-                <MenuItem.Icon>
-                    <Image Source="Images/charactershrinkfont.png"/>
-                </MenuItem.Icon>
-            </MenuItem>
-
-            <MenuItem Command="EditingCommands.ToggleBullets" ToolTip="Bullets">
-                <MenuItem.Icon>
-                    <Image Source="Images/text_list_bullets.png"/>
-                </MenuItem.Icon>
-            </MenuItem>
-            <MenuItem Command="EditingCommands.ToggleNumbering" ToolTip="Numbering">
-                <MenuItem.Icon>
-                    <Image Source="Images/text_list_numbers.png"/>
-                </MenuItem.Icon>
-            </MenuItem>
-            <MenuItem Command="EditingCommands.AlignLeft" ToolTip="Align Left">
-                <MenuItem.Icon>
-                    <Image Source="Images/text_align_left.png"/>
-                </MenuItem.Icon>
-            </MenuItem>
-            <MenuItem Command="EditingCommands.AlignCenter" ToolTip="Align Center">
-                <MenuItem.Icon>
-                    <Image Source="Images/text_align_center.png"/>
-                </MenuItem.Icon>
-            </MenuItem>
-            <MenuItem Command="EditingCommands.AlignRight" ToolTip="Align Right">
-                <MenuItem.Icon>
-                    <Image Source="Images/text_align_right.png"/>
-                </MenuItem.Icon>
-            </MenuItem>
-            <MenuItem Command="EditingCommands.AlignJustify" ToolTip="Align Justify">
-                <MenuItem.Icon>
-                    <Image Source="Images/text_align_justify.png"/>
-                </MenuItem.Icon>
-            </MenuItem>
-            <MenuItem Command="EditingCommands.IncreaseIndentation" ToolTip="Increase Indent">
-                <MenuItem.Icon>
-                    <Image Source="Images/text_indent.png"/>
-                </MenuItem.Icon>
-            </MenuItem>
-            <MenuItem Command="EditingCommands.DecreaseIndentation" ToolTip="Decrease Indent">
-                <MenuItem.Icon>
-                    <Image Source="Images/text_indent_remove.png"/>
-                </MenuItem.Icon>
-            </MenuItem>
         </ContextMenu>
         <Style x:Key="ToolBarStyle" TargetType="{x:Type ToolBar}">
             <Style.Triggers>
@@ -495,20 +444,20 @@
 				BorderThickness="{Binding BorderThickness, ElementName=uxRichTextEditor}" 
 				 Template="{DynamicResource ToolBarControlTemplate1}">
             <Button Style="{StaticResource formatImageStyle}" Command="ApplicationCommands.Cut" ToolTip="Cut">
-                <Image Source="Images/cut.png"/>
+                <Image Source="Images/cut.png" Stretch="Uniform" Width="16" Height="16"/>
             </Button>
             <Button Style="{StaticResource formatImageStyle}" Command="ApplicationCommands.Copy" ToolTip="Copy">
-                <Image Source="Images/page_copy.png"/>
+                <Image Source="Images/page_copy.png" Stretch="Uniform" Width="16" Height="16"/>
             </Button>
             <Button Style="{StaticResource formatImageStyle}" Command="ApplicationCommands.Paste" ToolTip="Paste">
-                <Image Source="Images/page_paste.png"/>
+                <Image Source="Images/page_paste.png" Stretch="Uniform" Width="16" Height="16"/>
             </Button>
             <Separator />
             <Button Style="{StaticResource formatImageStyle}" Command="ApplicationCommands.Undo" ToolTip="Undo">
-                <Image Source="Images/editundo.png"/>
+                <Image Source="Images/editundo.png" Stretch="Uniform" Width="16" Height="16"/>
             </Button>
             <Button Style="{StaticResource formatImageStyle}" Command="ApplicationCommands.Redo" ToolTip="Redo">
-                <Image Source="Images/editredo.png"/>
+                <Image Source="Images/editredo.png" Stretch="Uniform" Width="16" Height="16"/>
             </Button>
             <Separator/>
             <Border Margin="2,0" Padding="0">
@@ -522,62 +471,66 @@
             </Border>
             <Border Margin="2,0" Padding="0">
                 <ComboBox ToolTip="Select Font Size" 
+                          Name="FontSizeComboBox"
                           ItemsSource="{Binding AvailableFontSizes, ElementName=uxRichTextEditor}" 
                           Width="55" 
                           IsEditable="False" 
                           IsReadOnly="True" 
                           SelectedIndex="0" 
-                          SelectionChanged="ComboBoxFontSize_SelectionChanged"/>
+                          SelectionChanged="ComboBoxFontSize_SelectionChanged" />
             </Border>
             <Button Style="{StaticResource formatImageStyle}" Command="EditingCommands.IncreaseFontSize" ToolTip="Grow Font">
-                <Image Source="Images/charactergrowfont.png"/>
+                <Image Source="Images/charactergrowfont.png" Stretch="Uniform" Width="16" Height="16"/>
             </Button>
             <Button Style="{StaticResource formatImageStyle}" Command="EditingCommands.DecreaseFontSize" ToolTip="Shrink Font">
-                <Image Source="Images/charactershrinkfont.png"/>
+                <Image Source="Images/charactershrinkfont.png" Stretch="Uniform" Width="16" Height="16"/>
             </Button>
             <Separator/>
-            <Button Style="{StaticResource formatImageStyle}" Command="EditingCommands.ToggleBold" ToolTip="Bold">
-                <Image Source="Images/text_bold.png"/>
-            </Button>
-            <Button Style="{StaticResource formatImageStyle}" Command="EditingCommands.ToggleItalic" ToolTip="Italic">
-                <Image Source="Images/text_italic.png"/>
-            </Button>
-            <Button Style="{StaticResource formatImageStyle}" Command="EditingCommands.ToggleUnderline" ToolTip="Underline">
-                <Image Source="Images/text_underline.png"/>
-            </Button>
+            <CheckBox Name="BtnBold" Command="EditingCommands.ToggleBold" ToolTip="Bold">
+                <Image Source="Images/text_bold.png" Stretch="Uniform" Width="16" Height="16"/>
+            </CheckBox>
+            <CheckBox Name="BtnItalic" Command="EditingCommands.ToggleItalic" ToolTip="Italic">
+                <Image Source="Images/text_italic.png" Stretch="Uniform" Width="16" Height="16"/>
+            </CheckBox>
+            <CheckBox Name="BtnUnderline" Command="EditingCommands.ToggleUnderline" ToolTip="Underline">
+                <Image Source="Images/text_underline.png" Stretch="Uniform" Width="16" Height="16"/>
+            </CheckBox>
             <xt:ColorPicker ShowDropDownButton="true" ToolTip="Select font color" ShowAvailableColors="False" SelectedColorChanged="FontColorPicker_SelectedColorChanged" Width="40" Margin="4,0"/>
             <xt:ColorPicker ShowDropDownButton="true" ToolTip="Select background color" ShowAvailableColors="False" SelectedColorChanged="BGColorPicker_SelectedColorChanged" Width="40" Margin="4,0"/>
             <Separator />
             <Button Style="{StaticResource buttonComboBoxStyle}" Command="EditingCommands.AlignLeft" ToolTip="Align Left">
-                <Image Source="Images/text_align_left.png"/>
+                <Image Source="Images/text_align_left.png" Stretch="Uniform" Width="16" Height="16"/>
             </Button>
             <Button Style="{StaticResource buttonComboBoxStyle}" Command="EditingCommands.AlignCenter" ToolTip="Align Center">
-                <Image Source="Images/text_align_center.png"/>
+                <Image Source="Images/text_align_center.png" Stretch="Uniform" Width="16" Height="16"/>
             </Button>
             <Button Style="{StaticResource buttonComboBoxStyle}" Command="EditingCommands.AlignRight" ToolTip="Align Right">
-                <Image Source="Images/text_align_right.png"/>
+                <Image Source="Images/text_align_right.png" Stretch="Uniform" Width="16" Height="16"/>
             </Button>
             <Button Style="{StaticResource buttonComboBoxStyle}" Command="EditingCommands.AlignJustify" ToolTip="Align Justify">
-                <Image Source="Images/text_align_justify.png"/>
+                <Image Source="Images/text_align_justify.png" Stretch="Uniform" Width="16" Height="16"/>
             </Button>
             <Separator/>
             <Button Style="{StaticResource buttonComboBoxStyle}" Command="EditingCommands.ToggleBullets" ToolTip="Bullets">
-                <Image Source="Images/text_list_bullets.png"/>
+                <Image Source="Images/text_list_bullets.png" Stretch="Uniform" Width="16" Height="16"/>
             </Button>
             <Button Style="{StaticResource buttonComboBoxStyle}" Command="EditingCommands.ToggleNumbering" ToolTip="Numbering">
-                <Image Source="Images/text_list_numbers.png"/>
+                <Image Source="Images/text_list_numbers.png" Stretch="Uniform" Width="16" Height="16"/>
             </Button>
             <Separator/>
             <Button Style="{StaticResource buttonComboBoxStyle}" Command="EditingCommands.IncreaseIndentation" ToolTip="Increase Indent">
-                <Image Source="Images/text_indent.png"/>
+                <Image Source="Images/text_indent.png" Stretch="Uniform" Width="16" Height="16"/>
             </Button>
             <Button Style="{StaticResource buttonComboBoxStyle}" Command="EditingCommands.DecreaseIndentation" ToolTip="Decrease Indent">
-                <Image Source="Images/text_indent_remove.png"/>
+                <Image Source="Images/text_indent_remove.png" Stretch="Uniform" Width="16" Height="16"/>
             </Button>
             <Separator/>
+            <Button Style="{StaticResource buttonComboBoxStyle}" Click="ButtonBase_OnClick" ToolTip="Add image">
+                <Image Source="Images/world_link.png" Stretch="Uniform" Width="16" Height="16"/>
+            </Button>
             <Button x:Name="insertLink" Style="{StaticResource buttonComboBoxStyle}" ToolTip="Insert link" Click="insertLink_Click">
                 <Grid>
-                    <Image Source="Images/world_link.png"/>
+                    <Image Source="Images/world_link.png" Stretch="Uniform" Width="16" Height="16"/>
                     <Popup x:Name="uriInputPopup" StaysOpen="False" PlacementTarget="{Binding ElementName=insertLink, Mode=OneWay}">
                         <StackPanel Orientation="Horizontal" Background="Silver">
                             <TextBox Margin="2,2,0,2" x:Name="uriInput" Width="100" KeyUp="uriInput_KeyPressed" />
@@ -599,11 +552,12 @@
 							MinHeight="100" 
 							IsReadOnly="{Binding IsReadOnly, ElementName=uxRichTextEditor}" 
 							ContextMenu="{DynamicResource rtbContextMenu}" 
-							ContextMenuOpening="ContextMenu_ContextMenuOpening"
-							Background="{Binding Background, ElementName=uxRichTextEditor}"
-							Foreground="{Binding Foreground, ElementName=uxRichTextEditor}"
+							ContextMenuOpening="ContextMenu_ContextMenuOpening" 
+							Background="{Binding Background, ElementName=uxRichTextEditor}" 
+							Foreground="{Binding Foreground, ElementName=uxRichTextEditor}" 
 							BorderBrush="{Binding BorderBrush, ElementName=uxRichTextEditor}" 
 							BorderThickness="{Binding BorderThickness, ElementName=uxRichTextEditor}" 
+                            SelectionChanged="MainRTB_OnSelectionChanged"
 							/>
         </ScrollViewer>
     </Grid>

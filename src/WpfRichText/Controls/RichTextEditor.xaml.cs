@@ -21,38 +21,40 @@ namespace WpfRichText
     /// </summary>
     public partial class RichTextEditor : UserControl
     {
-		/// <summary></summary>
-		public static readonly DependencyProperty TextProperty =
-		  DependencyProperty.Register("Text", typeof(string), typeof(RichTextEditor),
-		  new PropertyMetadata(string.Empty));
+        #region Dependency Properties
 
-		/// <summary></summary>
-		public static readonly DependencyProperty IsToolBarVisibleProperty =
-		  DependencyProperty.Register("IsToolBarVisible", typeof(bool), typeof(RichTextEditor),
-		  new PropertyMetadata(true));
+        /// <summary></summary>
+        public static readonly DependencyProperty TextProperty =
+            DependencyProperty.Register("Text", typeof(string), typeof(RichTextEditor),
+                new PropertyMetadata(string.Empty));
 
-		/// <summary></summary>
-		public static readonly DependencyProperty IsContextMenuEnabledProperty =
-		  DependencyProperty.Register("IsContextMenuEnabled", typeof(bool), typeof(RichTextEditor),
-		  new PropertyMetadata(true));
+        /// <summary></summary>
+        public static readonly DependencyProperty IsToolBarVisibleProperty =
+            DependencyProperty.Register("IsToolBarVisible", typeof(bool), typeof(RichTextEditor),
+                new PropertyMetadata(true));
 
-		/// <summary></summary>
-		public static readonly DependencyProperty IsReadOnlyProperty =
-		  DependencyProperty.Register("IsReadOnly", typeof(bool), typeof(RichTextEditor),
-		  new PropertyMetadata(false));
+        /// <summary></summary>
+        public static readonly DependencyProperty IsContextMenuEnabledProperty =
+            DependencyProperty.Register("IsContextMenuEnabled", typeof(bool), typeof(RichTextEditor),
+                new PropertyMetadata(true));
 
-		/// <summary></summary>
-		public static readonly DependencyProperty AvailableFontsProperty =
-		  DependencyProperty.Register("AvailableFonts", typeof(Collection<String>), typeof(RichTextEditor),
-		  new PropertyMetadata(new Collection<String>(
-			  new List<String>(4) 
-			  {
-				  "Arial",
-				  "Courier New",
-				  "Tahoma",
-				  "Times New Roman"
-			  }
-		)));
+        /// <summary></summary>
+        public static readonly DependencyProperty IsReadOnlyProperty =
+            DependencyProperty.Register("IsReadOnly", typeof(bool), typeof(RichTextEditor),
+                new PropertyMetadata(false));
+
+        /// <summary></summary>
+        public static readonly DependencyProperty AvailableFontsProperty =
+            DependencyProperty.Register("AvailableFonts", typeof(Collection<String>), typeof(RichTextEditor),
+                new PropertyMetadata(new Collection<String>(
+                    new List<String>(4) 
+                    {
+                        "Arial",
+                        "Courier New",
+                        "Tahoma",
+                        "Times New Roman"
+                    }
+                )));
 
         /// <summary></summary>
         public static readonly DependencyProperty AvailableFontSizesProperty =
@@ -81,69 +83,77 @@ namespace WpfRichText
                     }
                 )));
 
-        private TextRange textRange = null;
+        #endregion
 
+        private TextRange _textRange = null;
+
+		/// <inheritdoc />
 		/// <summary></summary>
 		public RichTextEditor()
         {
             InitializeComponent();
-		}
+            mainRTB.Focus();
+        }
 
-		/// <summary></summary>
-		public string Text
-		{
-			get { return GetValue(TextProperty) as string; }
-			set
-			{
-				SetValue(TextProperty, value);
-			}
-		}
+        #region Properties
 
-		/// <summary></summary>
-		public bool IsToolBarVisible
-		{
-			get { return (GetValue(IsToolBarVisibleProperty) as bool? == true); }
-			set
-			{
-				SetValue(IsToolBarVisibleProperty, value);
-				//this.mainToolBar.Visibility = (value == true) ? Visibility.Visible : Visibility.Collapsed;
-			}
-		}
+        /// <summary></summary>
+        public string Text
+        {
+            get { return GetValue(TextProperty) as string; }
+            set
+            {
+                SetValue(TextProperty, value);
+            }
+        }
 
-		/// <summary></summary>
-		public bool IsContextMenuEnabled
-		{
-			get 
-			{ 
-				return (GetValue(IsContextMenuEnabledProperty) as bool? == true);
-			}
-			set
-			{
-				SetValue(IsContextMenuEnabledProperty, value);
-			}
-		}
+        /// <summary></summary>
+        public bool IsToolBarVisible
+        {
+            get { return (GetValue(IsToolBarVisibleProperty) as bool? == true); }
+            set
+            {
+                SetValue(IsToolBarVisibleProperty, value);
+                //this.mainToolBar.Visibility = (value == true) ? Visibility.Visible : Visibility.Collapsed;
+            }
+        }
 
-		/// <summary></summary>
-		public bool IsReadOnly
-		{
-			get { return (GetValue(IsReadOnlyProperty) as bool? == true); }
-			set
-			{
-				SetValue(IsReadOnlyProperty, value);
-				SetValue(IsToolBarVisibleProperty, !value);
-				SetValue(IsContextMenuEnabledProperty, !value);
-			}
-		}
+        /// <summary></summary>
+        public bool IsContextMenuEnabled
+        {
+            get 
+            { 
+                return (GetValue(IsContextMenuEnabledProperty) as bool? == true);
+            }
+            set
+            {
+                SetValue(IsContextMenuEnabledProperty, value);
+            }
+        }
 
-		/// <summary></summary>
-		public Collection<String> AvailableFonts
-		{
-			get { return GetValue(AvailableFontsProperty) as Collection<String>; }
-			set
-			{
-				SetValue(AvailableFontsProperty, value);
-			}
-		}
+        /// <summary></summary>
+        public bool IsReadOnly
+        {
+            get { return (GetValue(IsReadOnlyProperty) as bool? == true); }
+            set
+            {
+                SetValue(IsReadOnlyProperty, value);
+                SetValue(IsToolBarVisibleProperty, !value);
+                SetValue(IsContextMenuEnabledProperty, !value);
+            }
+        }
+
+        /// <summary></summary>
+        public Collection<String> AvailableFonts
+        {
+            get { return GetValue(AvailableFontsProperty) as Collection<String>; }
+            set
+            {
+                SetValue(AvailableFontsProperty, value);
+            }
+        }
+
+        #endregion
 
 		private void FontColorPicker_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)
 		{
@@ -152,13 +162,12 @@ namespace WpfRichText
 
 		private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			if (this.mainRTB != null && this.mainRTB.Selection != null)
-				this.mainRTB.Selection.ApplyPropertyValue(FontFamilyProperty, e.AddedItems[0]);
+		    mainRTB?.Selection?.ApplyPropertyValue(FontFamilyProperty, e.AddedItems[0]);
 		}
 
 		private void insertLink_Click(object sender, RoutedEventArgs e)
 		{
-			this.textRange = new TextRange(this.mainRTB.Selection.Start, this.mainRTB.Selection.End);
+			this._textRange = new TextRange(this.mainRTB.Selection.Start, this.mainRTB.Selection.End);
 			this.uriInputPopup.IsOpen = true;
 		}
 
@@ -173,13 +182,15 @@ namespace WpfRichText
 		{
 			e.Handled = true;
 			this.uriInputPopup.IsOpen = false;
-			this.mainRTB.Selection.Select(this.textRange.Start, this.textRange.End);
+			this.mainRTB.Selection.Select(this._textRange.Start, this._textRange.End);
 			if (!string.IsNullOrEmpty(this.uriInput.Text))
 			{
-				this.textRange = new TextRange(this.mainRTB.Selection.Start, this.mainRTB.Selection.End);
-				Hyperlink hlink = new Hyperlink(this.textRange.Start, this.textRange.End);
-				hlink.NavigateUri = new Uri(this.uriInput.Text, UriKind.RelativeOrAbsolute);
-				this.uriInput.Text = string.Empty;
+				this._textRange = new TextRange(this.mainRTB.Selection.Start, this.mainRTB.Selection.End);
+			    Hyperlink hlink = new Hyperlink(this._textRange.Start, this._textRange.End)
+			    {
+			        NavigateUri = new Uri(this.uriInput.Text, UriKind.RelativeOrAbsolute)
+			    };
+			    this.uriInput.Text = string.Empty;
 			}
 			else
 				this.mainRTB.Selection.ClearAllProperties();			
@@ -195,14 +206,12 @@ namespace WpfRichText
 				case Key.Escape:
 					this.uriCancelClick(sender, e);
 					break;
-				default:
-					break;
 			}
 		}
 
 		private void ContextMenu_ContextMenuOpening(object sender, ContextMenuEventArgs e)
 		{
-			if (!this.IsContextMenuEnabled == true)
+			if (!this.IsContextMenuEnabled)
 				e.Handled = true;
 		}
 
@@ -213,8 +222,23 @@ namespace WpfRichText
 
         private void ComboBoxFontSize_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (this.mainRTB != null && this.mainRTB.Selection != null)
-                this.mainRTB.Selection.ApplyPropertyValue(TextElement.FontSizeProperty, e.AddedItems[0]);
+            mainRTB?.Selection?.ApplyPropertyValue(TextElement.FontSizeProperty, e.AddedItems[0]);
+        }
+
+        private void MainRTB_OnSelectionChanged(object sender, RoutedEventArgs e)
+        {
+            var selection = this.mainRTB.Selection;
+            var ptSize = (double) selection.GetPropertyValue(FontSizeProperty);
+
+            if (Math.Abs((double)(FontSizeComboBox.SelectedValue) - ptSize) > 0.1)
+            {
+                FontSizeComboBox.SelectedValue = ptSize;
+            }
+        }
+
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }
